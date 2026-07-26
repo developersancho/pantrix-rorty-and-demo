@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  The TEXT owns the row height, not the image. When a row has no image (Episodes, Locations) the
+  ImageView is GONE, and a layout whose text was constrained to it produced rows TALLER than the ones
+  with an image — a collapsed view still resolves to a position, and the text followed it. So the
+  titles are constrained to the parent, the avatar is centred against them, and `goneMarginStart`
+  reclaims the leading gap when there is no image.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
+    android:minHeight="72dp"
     android:paddingHorizontal="16dp"
     android:paddingVertical="10dp">
 
@@ -23,23 +31,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:maxLines="1"
         android:textAppearance="?attr/textAppearanceTitleMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toTopOf="@id/avatar" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="0dp" />
 
     <TextView
         android:id="@+id/subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:maxLines="1"
         android:ellipsize="end"
+        android:maxLines="1"
         android:textAppearance="?attr/textAppearanceBodyMedium"
         android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toBottomOf="@id/name" />
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_goneMarginStart="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

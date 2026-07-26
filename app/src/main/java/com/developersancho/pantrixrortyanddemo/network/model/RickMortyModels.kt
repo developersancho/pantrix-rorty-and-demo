@@ -42,3 +42,27 @@ data class RMRef(
     @Json(name = "name") val name: String = "",
     @Json(name = "url") val url: String = ""
 )
+
+@JsonClass(generateAdapter = true)
+data class RMEpisode(
+    @Json(name = "id") val id: Int,
+    @Json(name = "name") val name: String,
+    /** "December 2, 2013" — the API's own formatting, shown verbatim. */
+    @Json(name = "air_date") val airDate: String = "",
+    /** "S01E01" */
+    @Json(name = "episode") val code: String = "",
+    @Json(name = "characters") val characters: List<String> = emptyList()
+) {
+    val summary: String get() = listOf(code, airDate).filter { it.isNotBlank() }.joinToString(" · ")
+}
+
+@JsonClass(generateAdapter = true)
+data class RMLocation(
+    @Json(name = "id") val id: Int,
+    @Json(name = "name") val name: String,
+    @Json(name = "type") val type: String = "",
+    @Json(name = "dimension") val dimension: String = "",
+    @Json(name = "residents") val residents: List<String> = emptyList()
+) {
+    val summary: String get() = listOf(type, dimension).filter { it.isNotBlank() }.joinToString(" · ")
+}

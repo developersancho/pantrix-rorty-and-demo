@@ -4,6 +4,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/charactersFragment">
 
+    <!-- A global action: an episode's or a location's character list opens the same detail screen
+         the Characters tab uses, from wherever it is reached. -->
+    <action
+        android:id="@+id/action_global_characterDetail"
+        app:destination="@id/characterDetailFragment" />
+
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.developersancho.pantrixrortyanddemo.feature.characters.CharactersFragment"
@@ -17,9 +23,39 @@
         android:id="@+id/characterDetailFragment"
         android:name="com.developersancho.pantrixrortyanddemo.feature.characters.CharacterDetailFragment"
         android:label="@string/title_characters">
-        <argument
-            android:name="characterId"
-            app:argType="integer" />
+        <argument android:name="characterId" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.episodes.EpisodesFragment"
+        android:label="@string/title_episodes">
+        <action
+            android:id="@+id/action_episodes_to_detail"
+            app:destination="@id/episodeDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.episodes.EpisodeDetailFragment"
+        android:label="@string/title_episodes">
+        <argument android:name="episodeId" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/locationsFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.locations.LocationsFragment"
+        android:label="@string/title_locations">
+        <action
+            android:id="@+id/action_locations_to_detail"
+            app:destination="@id/locationDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/locationDetailFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.locations.LocationDetailFragment"
+        android:label="@string/title_locations">
+        <argument android:name="locationId" app:argType="integer" />
     </fragment>
 
     <fragment

@@ -3,6 +3,7 @@ package com.developersancho.pantrixrortyanddemo.feature.characters
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.developersancho.pantrixrortyanddemo.feature.shared.RickMortyRepository
 import com.developersancho.pantrixrortyanddemo.network.model.RMCharacter
 import com.pantrix.api.Pantrix
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ data class CharacterDetailUiState(
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
-    private val repository: CharactersRepository,
+    private val repository: RickMortyRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

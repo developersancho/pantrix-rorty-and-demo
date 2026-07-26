@@ -23,7 +23,12 @@ class MainActivity : AppCompatActivity() {
         val navController = (supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment)
             .navController
         // Only the two tab destinations are top level; everything else gets an Up arrow.
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.charactersFragment, R.id.labFragment))
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.charactersFragment,
+            R.id.episodesFragment,
+            R.id.locationsFragment,
+            R.id.labFragment
+        ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNav.setupWithNavController(navController)
     }

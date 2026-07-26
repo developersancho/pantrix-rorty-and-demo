@@ -43,9 +43,14 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="characters_search_hint">Search characters</string>
-    <string name="characters_empty">No characters matched that name.</string>
     <string name="action_retry">Retry</string>
     <string name="title_characters">Characters</string>
     <string name="title_lab">Lab</string>
     <string name="title_crash_lab">Crash Lab</string>
+    <string name="episodes_search_hint">Search episodes</string>
+    <string name="locations_search_hint">Search locations</string>
+    <string name="list_empty">Nothing matched that search.</string>
+    <string name="section_characters">Characters</string>
+    <string name="title_episodes">Episodes</string>
+    <string name="title_locations">Locations</string>
 </resources>
