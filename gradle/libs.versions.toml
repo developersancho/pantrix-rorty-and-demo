@@ -10,6 +10,15 @@ constraintlayout = "2.2.1"
 activityKtx = "1.13.0"
 navigationFragmentKtx = "2.9.8"
 navigationUiKtx = "2.9.8"
+pantrix = "1.0.0-beta.5"
+kotlin = "2.3.0"
+ksp = "2.3.4"
+hilt = "2.60.1"
+moshi = "1.15.2"
+retrofit = "3.0.0"
+okhttp = "5.3.2"
+coil = "2.7.0"
+lifecycle = "2.9.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,10 +28,38 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version = "1.4.0" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 
+# Pantrix SDK. `pantrix-sdk` carries the whole core incl. OkHttp tracking; the debug tools ship as
+# real/-noop twin pairs so release links the inert stub instead of the tool.
+pantrix-sdk = { group = "com.pantrix.analytics", name = "pantrix-sdk", version.ref = "pantrix" }
+pantrix-inspector = { group = "com.pantrix.analytics", name = "pantrix-inspector", version.ref = "pantrix" }
+pantrix-inspector-noop = { group = "com.pantrix.analytics", name = "pantrix-inspector-noop", version.ref = "pantrix" }
+pantrix-feedback = { group = "com.pantrix.analytics", name = "pantrix-feedback", version.ref = "pantrix" }
+pantrix-feedback-noop = { group = "com.pantrix.analytics", name = "pantrix-feedback-noop", version.ref = "pantrix" }
+pantrix-widget = { group = "com.pantrix.analytics", name = "pantrix-widget", version.ref = "pantrix" }
+pantrix-widget-noop = { group = "com.pantrix.analytics", name = "pantrix-widget-noop", version.ref = "pantrix" }
+
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
+moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+pantrix-gradle = { id = "com.pantrix.gradle", version.ref = "pantrix" }
 

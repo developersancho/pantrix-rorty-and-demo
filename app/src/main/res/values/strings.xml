@@ -42,4 +42,10 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="characters_search_hint">Search characters</string>
+    <string name="characters_empty">No characters matched that name.</string>
+    <string name="action_retry">Retry</string>
+    <string name="title_characters">Characters</string>
+    <string name="title_lab">Lab</string>
+    <string name="title_crash_lab">Crash Lab</string>
 </resources>

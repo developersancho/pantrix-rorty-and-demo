@@ -9,6 +9,12 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        // Pantrix SDK + its Gradle plugin. A raw-content Maven repo on the distribution repo's
+        // `maven-repo` branch — the group filter keeps every other dependency off it.
+        maven {
+            url = uri("https://raw.githubusercontent.com/developersancho/pantrix-sdk-android-aar/maven-repo/")
+            content { includeGroupByRegex("com\\.pantrix.*") }
+        }
     }
 }
 plugins {
@@ -19,6 +25,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Pantrix SDK + its Gradle plugin. A raw-content Maven repo on the distribution repo's
+        // `maven-repo` branch — the group filter keeps every other dependency off it.
+        maven {
+            url = uri("https://raw.githubusercontent.com/developersancho/pantrix-sdk-android-aar/maven-repo/")
+            content { includeGroupByRegex("com\\.pantrix.*") }
+        }
     }
 }
 

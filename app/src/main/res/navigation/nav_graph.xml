@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/charactersFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.developersancho.pantrixrortyanddemo.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/charactersFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.characters.CharactersFragment"
+        android:label="@string/title_characters">
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_characters_to_detail"
+            app:destination="@id/characterDetailFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.developersancho.pantrixrortyanddemo.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+        android:id="@+id/characterDetailFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.characters.CharacterDetailFragment"
+        android:label="@string/title_characters">
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/labFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.lab.LabFragment"
+        android:label="@string/title_lab">
+        <action
+            android:id="@+id/action_lab_to_crashLab"
+            app:destination="@id/crashLabFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/crashLabFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.lab.CrashLabFragment"
+        android:label="@string/title_crash_lab" />
 </navigation>
