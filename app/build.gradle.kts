@@ -49,7 +49,6 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "1.0.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -153,15 +152,19 @@ dependencies {
     implementation(libs.pantrix.sdk)
     debugImplementation(libs.pantrix.inspector)
     debugImplementation(libs.pantrix.feedback)
-    debugImplementation(libs.pantrix.widget)
     "qaTestImplementation"(libs.pantrix.inspector)
     "qaTestImplementation"(libs.pantrix.feedback)
-    "qaTestImplementation"(libs.pantrix.widget)
     releaseImplementation(libs.pantrix.inspector.noop)
     releaseImplementation(libs.pantrix.feedback.noop)
+
+    // The home-screen widget is DEBUG only. It has no init call — its receiver arrives through the
+    // merged manifest — so simply having the real module on a build type makes the widget appear in
+    // the launcher's picker. That is why Glance must come with it: pantrix-widget declares Glance
+    // `compileOnly`, and without it the system hits NoClassDefFoundError the moment the widget is
+    // placed. qaTest and release take the `-noop` twin, which registers nothing.
+    debugImplementation(libs.pantrix.widget)
+    debugImplementation(libs.glance.appwidget)
+    "qaTestImplementation"(libs.pantrix.widget.noop)
     releaseImplementation(libs.pantrix.widget.noop)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
 }

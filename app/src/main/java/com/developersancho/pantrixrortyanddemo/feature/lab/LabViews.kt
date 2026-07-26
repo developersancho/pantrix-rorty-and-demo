@@ -1,6 +1,5 @@
 package com.developersancho.pantrixrortyanddemo.feature.lab
 
-import android.content.Context
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -37,5 +36,3 @@ internal fun LinearLayout.actionRow(title: String, subtitle: String, onClick: ()
         setPadding(8)
     })
 }
-
-internal fun Context.dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
