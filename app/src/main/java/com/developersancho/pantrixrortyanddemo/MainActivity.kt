@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
             R.id.charactersFragment,
             R.id.episodesFragment,
             R.id.locationsFragment,
+            R.id.profileFragment,
             R.id.labFragment
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)

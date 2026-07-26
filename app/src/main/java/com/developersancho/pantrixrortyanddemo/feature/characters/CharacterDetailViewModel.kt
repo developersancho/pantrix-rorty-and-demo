@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developersancho.pantrixrortyanddemo.feature.shared.RickMortyRepository
 import com.developersancho.pantrixrortyanddemo.network.model.RMCharacter
+import com.developersancho.pantrixrortyanddemo.network.model.RMEpisode
 import com.pantrix.api.Pantrix
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 data class CharacterDetailUiState(
     val character: RMCharacter? = null,
+    val episodes: List<RMEpisode> = emptyList(),
     val error: String? = null
 )
 
@@ -31,8 +33,15 @@ class CharacterDetailViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            runCatching { repository.character(characterId) }
-                .onSuccess { _state.value = CharacterDetailUiState(character = it) }
+            runCatching {
+                val character = repository.character(characterId)
+                // A second request on purpose: it resolves the episode URLs the character carries and
+                // exercises the batch endpoint from the other direction.
+                character to repository.episodesByUrls(character.episode)
+            }
+                .onSuccess { (character, episodes) ->
+                    _state.value = CharacterDetailUiState(character = character, episodes = episodes)
+                }
                 .onFailure {
                     Pantrix.trackException(it, mapOf("screen" to "CharacterDetail", "id" to characterId))
                     _state.value = CharacterDetailUiState(error = it.message ?: "Could not load")

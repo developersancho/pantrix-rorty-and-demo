@@ -40,6 +40,19 @@ class RickMortyRepository @Inject constructor(private val api: RickMortyApi) {
     }
 
     /**
+     * The episodes a character appears in. Same single-vs-array quirk as [charactersByUrls]: the API
+     * answers an object for one id and an array for several.
+     */
+    suspend fun episodesByUrls(urls: List<String>, limit: Int = 30): List<RMEpisode> {
+        val ids = urls.mapNotNull { it.substringAfterLast('/').toIntOrNull() }.take(limit)
+        return when {
+            ids.isEmpty() -> emptyList()
+            ids.size == 1 -> listOf(api.episode(ids.first()))
+            else -> api.episodesByIds(ids.joinToString(","))
+        }
+    }
+
+    /**
      * A search with no matches answers **404**, not an empty page — modelled as an empty result so
      * typing a nonsense name does not look like the network broke.
      */

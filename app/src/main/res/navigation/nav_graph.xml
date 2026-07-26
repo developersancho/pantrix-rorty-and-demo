@@ -9,6 +9,10 @@
     <action
         android:id="@+id/action_global_characterDetail"
         app:destination="@id/characterDetailFragment" />
+    <!-- The reverse direction: a character's episode list opens the episode detail. -->
+    <action
+        android:id="@+id/action_global_episodeDetail"
+        app:destination="@id/episodeDetailFragment" />
 
     <fragment
         android:id="@+id/charactersFragment"
@@ -57,6 +61,11 @@
         android:label="@string/title_locations">
         <argument android:name="locationId" app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.developersancho.pantrixrortyanddemo.feature.profile.ProfileFragment"
+        android:label="@string/title_profile" />
 
     <fragment
         android:id="@+id/labFragment"

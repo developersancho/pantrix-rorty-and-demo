@@ -35,6 +35,10 @@ interface RickMortyApi {
     @GET("episode/{id}")
     suspend fun episode(@Path("id") id: Int): RMEpisode
 
+    /** Batch lookup — see [charactersByIds] for why the path is pre-encoded. */
+    @GET("episode/{ids}")
+    suspend fun episodesByIds(@Path("ids", encoded = true) ids: String): List<RMEpisode>
+
     @GET("location")
     suspend fun locations(
         @Query("page") page: Int,

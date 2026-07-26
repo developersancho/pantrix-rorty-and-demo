@@ -11,4 +11,6 @@
     <string name="section_characters">Characters</string>
     <string name="title_episodes">Episodes</string>
     <string name="title_locations">Locations</string>
+    <string name="title_profile">Profile</string>
+    <string name="section_episodes">Episodes</string>
 </resources>

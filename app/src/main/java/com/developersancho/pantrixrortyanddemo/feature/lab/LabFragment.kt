@@ -78,13 +78,6 @@ class LabFragment : Fragment(R.layout.fragment_lab) {
                 .onFailure { Pantrix.trackException(it, mapOf("screen" to "Lab")) }
             toast("handled exception reported")
         }
-        container.actionRow(
-            "Identify the user",
-            "Pantrix.setUser(\"lab-user\", …)"
-        ) {
-            Pantrix.setUser("lab-user", mapOf("plan" to "demo"))
-            toast("user set")
-        }
 
         container.sectionHeader("Debug tools")
         container.actionRow("Crash Lab", "Trigger real crashes captured on the next launch") {
@@ -95,14 +88,6 @@ class LabFragment : Fragment(R.layout.fragment_lab) {
         }
         container.actionRow("Send Feedback", "PantrixFeedback.show(activity) — or shake the device") {
             PantrixFeedback.show(requireActivity())
-        }
-
-        container.sectionHeader("This build")
-        container.actionRow(
-            "Variant: ${variant.name}",
-            "${variant.backendUrl} · token …${variant.ingestToken.takeLast(6)}"
-        ) {
-            toast(variant.name)
         }
     }
 

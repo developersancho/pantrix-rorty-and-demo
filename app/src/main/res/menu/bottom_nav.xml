@@ -3,5 +3,6 @@
     <item android:id="@+id/charactersFragment" android:icon="@android:drawable/ic_menu_sort_by_size" android:title="@string/title_characters" />
     <item android:id="@+id/episodesFragment"   android:icon="@android:drawable/ic_menu_agenda"       android:title="@string/title_episodes" />
     <item android:id="@+id/locationsFragment"  android:icon="@android:drawable/ic_menu_mapmode"      android:title="@string/title_locations" />
+    <item android:id="@+id/profileFragment"  android:icon="@android:drawable/ic_menu_myplaces"     android:title="@string/title_profile" />
     <item android:id="@+id/labFragment"        android:icon="@android:drawable/ic_menu_manage"       android:title="@string/title_lab" />
 </menu>
