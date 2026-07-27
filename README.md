@@ -1,7 +1,7 @@
 # Pantrix Rorty — Android demo
 
 A from-scratch **MVVM / ViewBinding** sample app that integrates the published
-[Pantrix Android SDK](https://github.com/developersancho/pantrix-sdk-android-aar) (`1.0.0-beta.5`) and
+[Pantrix Android SDK](https://github.com/developersancho/pantrix-sdk-android-aar) (`1.0.0-beta.6`) and
 exercises every SDK surface, using the
 [Rick & Morty REST API](https://rickandmortyapi.com/documentation#rest) as its data source. It is the
 Android counterpart of the `pantrix-rorty-ios-uikit-demo` app.
@@ -67,7 +67,7 @@ including the Gradle plugin, so they can never drift apart:
 
 ```toml
 [versions]
-pantrix = "1.0.0-beta.5"
+pantrix = "1.0.0-beta.6"
 
 [libraries]
 pantrix-sdk            = { group = "com.pantrix.analytics", name = "pantrix-sdk",            version.ref = "pantrix" }
@@ -279,6 +279,18 @@ ordinary code that has never heard of Pantrix.
 `usesCleartextTraffic` is the platform-side twin of `allowInsecureConnection`: **both** are required to
 talk to a plain-http local backend, and they fail in different places if you only do one.
 
+**`ACCESS_NETWORK_STATE` is not here on purpose.** The SDK declares it in its own manifest from
+`1.0.0-beta.6` and the merger brings it in; this app dropping the line is what proves that works from a
+consumer's side. Verify with:
+
+```bash
+grep ACCESS_NETWORK_STATE app/build/intermediates/packaged_manifests/*/*/AndroidManifest.xml
+```
+
+Missing it — from either side — means `NetworkChangeCollector` never installs its callback, so every
+event reports `not_connected` and no `network_change` event is emitted at all. `INTERNET` stays the app's
+own: the SDK deliberately does not declare it, so the requirement is not hidden from the consumer.
+
 ## 10. R8 mapping upload (release + qaTest)
 
 A minified Android stack trace is meaningless without the R8 `mapping.txt`. The
@@ -401,14 +413,20 @@ app/
     profile/                 user identity actions + a "this build" summary
 ```
 
-# Known gaps
+# SDK findings this demo raised — all fixed in `1.0.0-beta.6`
 
-- **`connectionType=not_connected` on the emulator.** Export works, so the transport is fine — the
-  connectivity detector does not see the emulator's network and the metadata on every event is wrong.
-- **Periodic performance events are attributed to `NavHostFragment`**, not the visible fragment, because
-  Navigation Component hosts screens in a child fragment manager.
-- **No `clearUser()` on Android.** iOS has it; the Android public API has no equivalent, so the Profile
-  screen can unset individual properties but cannot de-identify a user. There is no "Log out" row here for
-  that reason.
+Running a real app against a real release is what surfaced these. Each was invisible in isolation: nothing
+threw, nothing logged, and the mock-driven panel looked populated the whole time.
 
-The first two are SDK-side findings raised by this demo, not app bugs.
+- **Every event reported `connectionType=not_connected`.** Export worked, because the exporter opens
+  sockets and never consults the connectivity provider — "transport fine, metadata wrong" is not a symptom
+  anyone traces to a manifest entry. `NetworkChangeCollector` silently skipped registration when the host
+  lacked `ACCESS_NETWORK_STATE`, and the SDK declared no permissions at all. The SDK now declares it
+  itself, which is why this app's manifest **deliberately does not** (step 9).
+- **Periodic performance events named `NavHostFragment`**, not the visible screen. Fragment callbacks are
+  registered recursively — they have to be, or Navigation destinations are invisible — so the host was
+  tracked as a screen too, and a parent resumes *after* its child, making it the last writer.
+- **`clearUser()` was unreachable.** It existed on the facade with no public passthrough, so a user could
+  be identified and never de-identified. `setCdId` / `getCdId` were in the same state.
+
+The Profile tab now exercises all three identity methods; the screen fix needs no app change.

@@ -17,10 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
  * User identity, kept separate from the Lab — the Lab is about events, this is about *who* the events
  * belong to. Mirrors the iOS demo's Profile tab.
  *
- * **Missing here: the log-out row iOS has.** Not a design choice — this app is pinned to
- * `1.0.0-beta.5`, and `Pantrix.clearUser()` only reached the public surface in `1.0.0-beta.6`
- * (the facade always had it; the `Pantrix` object had no passthrough). Add the row when the pin moves;
- * `Pantrix.setCdId` / `getCdId` arrived in the same release and belong on this screen too.
+ * Covers the three methods `1.0.0-beta.6` added to the public surface — `clearUser`, `setCdId` and
+ * `getCdId`. They had always existed on the facade with no passthrough, so until that release a user
+ * could be identified here and never de-identified.
  */
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -59,6 +58,30 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             Pantrix.unsetUserProperty("favorite_show")
             toast("property unset")
         }
+        container.actionRow(
+            "Log out",
+            "Pantrix.clearUser() — drops the user id AND the properties; later events are anonymous"
+        ) {
+            Pantrix.clearUser()
+            toast("user cleared")
+        }
+
+        // A custom device id is the host app's own device identity, stamped onto every event as `cdId`
+        // — the join key between Pantrix data and whatever the app already tracks devices by.
+        container.sectionHeader("Custom device id")
+        container.actionRow(
+            "Set a custom device id",
+            "Pantrix.setCdId(\"$DEMO_CD_ID\") — rides on every later event"
+        ) {
+            Pantrix.setCdId(DEMO_CD_ID)
+            toast("cdId set")
+        }
+        container.actionRow(
+            "Read it back",
+            "Pantrix.getCdId() — null before init, and before anything set one"
+        ) {
+            toast("cdId = ${Pantrix.getCdId() ?: "null"}")
+        }
 
         container.sectionHeader("This build")
         container.actionRow(
@@ -77,5 +100,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private companion object {
         const val DEMO_USER_ID = "demo-user-42"
+        const val DEMO_CD_ID = "rorty-device-7"
     }
 }

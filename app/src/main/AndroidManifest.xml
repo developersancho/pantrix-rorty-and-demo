@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Pantrix needs this to report network metadata. Without it NetworkChangeCollector.register()
-         returns without registering its callback, so every event carries the NOT_CONNECTED default and
-         no network_change event is ever emitted. Normal permission: no runtime prompt.
-         Needed here because this app is pinned to 1.0.0-beta.5, whose manifests declare no permissions
-         at all. From 1.0.0-beta.6 the SDK declares it itself and this line becomes redundant — harmless
-         either way (the merger dedupes), so it can stay or go when the pin moves. -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- ACCESS_NETWORK_STATE is deliberately NOT declared here. From 1.0.0-beta.6 the SDK declares it
+         in its own manifest and the merger brings it in; this app dropping the line is what proves that
+         works from a consumer's side. Check it with:
+           grep ACCESS_NETWORK_STATE app/build/intermediates/packaged_manifests/*/*/AndroidManifest.xml
+         Without the permission — from either side — NetworkChangeCollector never installs its callback,
+         every event reports not_connected, and no network_change event is emitted at all. -->
+
+    <!-- INTERNET stays ours: the app needs it for its own API, and the SDK deliberately does not
+         declare it so the requirement is not hidden from the consumer. -->
 
     <application
         android:name=".app.RortyApp"
