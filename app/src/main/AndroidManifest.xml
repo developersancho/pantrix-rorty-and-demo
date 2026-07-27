@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Pantrix needs this to report network metadata. Without it NetworkChangeCollector.register()
+         returns without registering its callback, so every event carries the NOT_CONNECTED default and
+         no network_change event is ever emitted — silently, since the SDK does not log the skip.
+         Normal permission: no runtime prompt. The SDK declares no permissions of its own, so every
+         consumer has to add this line themselves. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".app.RortyApp"

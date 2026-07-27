@@ -17,9 +17,10 @@ import dagger.hilt.android.AndroidEntryPoint
  * User identity, kept separate from the Lab — the Lab is about events, this is about *who* the events
  * belong to. Mirrors the iOS demo's Profile tab.
  *
- * One row iOS has is missing here on purpose: **there is no way to log out.** `Pantrix` on Android
- * exposes `setUser` / `setUserProperty` / `setUserProperties` / `unsetUserProperty` but no
- * `clearUser()`, which iOS does have. Individual properties can be removed; the user id cannot.
+ * **Missing here: the log-out row iOS has.** Not a design choice — this app is pinned to
+ * `1.0.0-beta.5`, and `Pantrix.clearUser()` only reached the public surface in `1.0.0-beta.6`
+ * (the facade always had it; the `Pantrix` object had no passthrough). Add the row when the pin moves;
+ * `Pantrix.setCdId` / `getCdId` arrived in the same release and belong on this screen too.
  */
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
