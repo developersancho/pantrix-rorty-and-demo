@@ -5,9 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Pantrix needs this to report network metadata. Without it NetworkChangeCollector.register()
          returns without registering its callback, so every event carries the NOT_CONNECTED default and
-         no network_change event is ever emitted — silently, since the SDK does not log the skip.
-         Normal permission: no runtime prompt. The SDK declares no permissions of its own, so every
-         consumer has to add this line themselves. -->
+         no network_change event is ever emitted. Normal permission: no runtime prompt.
+         Needed here because this app is pinned to 1.0.0-beta.5, whose manifests declare no permissions
+         at all. From 1.0.0-beta.6 the SDK declares it itself and this line becomes redundant — harmless
+         either way (the merger dedupes), so it can stay or go when the pin moves. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
