@@ -37,8 +37,11 @@ class RortyApp : Application() {
                 // Keep sent events on the dev variants so the Inspector still lists them after
                 // export; dropping them is what makes events "disappear" from it.
                 keepSentEvents(!variant.isRelease)
+                // FULL needs SQLCipher on the classpath (the SDK declares it `compileOnly`); this app
+                // ships it on the same variants — see `BuildVariant.encryptStorage` for the failure
+                // that made the pairing explicit. Get it wrong and `init` disables the SDK silently.
                 storageEncryption(
-                    if (variant.isRelease) StorageEncryption.FULL else StorageEncryption.NONE
+                    if (variant.encryptStorage) StorageEncryption.FULL else StorageEncryption.NONE
                 )
                 // On: the dashboard's SDK Config screen can override the values above. Set false to
                 // make this local config authoritative.

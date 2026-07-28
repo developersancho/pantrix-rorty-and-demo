@@ -1,7 +1,7 @@
 # Pantrix Rorty — Android demo
 
 A from-scratch **MVVM / ViewBinding** sample app that integrates the published
-[Pantrix Android SDK](https://github.com/developersancho/pantrix-sdk-android-aar) (`1.0.0-beta.6`) and
+[Pantrix Android SDK](https://github.com/developersancho/pantrix-sdk-android-aar) (`1.0.0-beta.7`) and
 exercises every SDK surface, using the
 [Rick & Morty REST API](https://rickandmortyapi.com/documentation#rest) as its data source. It is the
 Android counterpart of the `pantrix-rorty-ios-uikit-demo` app.
@@ -67,7 +67,7 @@ including the Gradle plugin, so they can never drift apart:
 
 ```toml
 [versions]
-pantrix = "1.0.0-beta.6"
+pantrix = "1.0.0-beta.7"
 
 [libraries]
 pantrix-sdk            = { group = "com.pantrix.analytics", name = "pantrix-sdk",            version.ref = "pantrix" }
